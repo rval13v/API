@@ -10,10 +10,7 @@ result = requests.get(url)
 # Выводит на печать статус-код ответа
 print("Статус код: " + str(result.status_code))
 # Проверяем ОР с ФР
-assert 200 == result.status_code
-if result.status_code == 200:
-    print('Cтатус код верен!')
-else:
-    print('Cтатус код не верен!')
+assert result.status_code == 200
+print('Статус код корректен')
 result.encoding = 'utf-8'
 print(result.json())
