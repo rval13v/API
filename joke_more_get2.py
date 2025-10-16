@@ -48,13 +48,7 @@ class TestCreateJokeCategory:
 
             if user_input in categories:
                 joke = self.get_joke_by_category(user_input)
-                if joke:
-                    print(f"\nШутка из категории '{user_input}':")
-                    print(joke)
-                else:
-                    print("\nНе удалось получить шутку.")
-            else:
-                print("\nТакой категории не существует. Bыберите из списка выше.")
+                print(f"\nШутка из категории '{user_input}':, \n{joke}")
 
 
 start = TestCreateJokeCategory()
