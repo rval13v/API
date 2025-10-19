@@ -69,19 +69,15 @@ class TestNewLocation:
         count Количество локаций для создания.
         """
         print(f"\n Создание {count} локаций и запись place_id в файл {filename}")
-        # Пустой список для хранения place_id.
-        self.list_place_id = []
-        for _ in range(count):
-            place_id = self.test_create_new_location()
-            self.list_place_id.append(place_id)
-        # Записываем каждый place_id в файл на новой строке.
+       # Записываем каждый place_id в файл на новой строке.
         with open(filename, 'w') as f:
-            for place_id in self.list_place_id:
-                f.write(f"{place_id}\n")
+          for _ in range(count):
+              place_id = self.test_create_new_location()
+              f.write(f"{place_id}\n")
         print(f"Все {count} place_id записаны в файл {filename}")
 
  # Метод для проверки локаций из файла с помощью GET-запросов.
-    def test_locations_from_file(self, filename: str):
+    def test_locations_from_file(self, filename: str) -> None:
         """
         Читает place_id из файла и проверяет каждую локацию
         с помощью GET-запроса, убеждаясь в корректности ответа.
