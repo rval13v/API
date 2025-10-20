@@ -1,10 +1,9 @@
 import requests
 
-# Создаем класс
-class TestNewLocation:
 
-# Создаем метод для создания новой локации через POST-запрос
-    def test_create_new_location(self):
+# Создаем класс.
+class TestNewLocation:
+    def test_create_new_location(self) -> str:
         """
         Отправляет POST-запрос для создания новой локации и
         проверяет, что запрос прошёл успешно.
@@ -61,22 +60,22 @@ class TestNewLocation:
         print(f'Поле place_id: {place_id}')
         return place_id
 
-# Метод для создания нескольких локаций и сохранения их place_id в файл.
-    def save_place_ids_to_file(self, filename: str, count: int):
+    # Метод для создания нескольких локаций и сохранения их place_id в файл.
+    def save_place_ids_to_file(self, filename: str, count: int) -> None:
         """
         Создаёт указанное количество локаций и записывает их place_id в файл.
         filename Имя файла для сохранения place_id.
         count Количество локаций для создания.
         """
-        print(f"\n Создание {count} локаций и запись place_id в файл {filename}")
+        print(f"\nСоздание {count} локаций и запись place_id в файл {filename}")
        # Записываем каждый place_id в файл на новой строке.
         with open(filename, 'w') as f:
-          for _ in range(count):
-              place_id = self.test_create_new_location()
-              f.write(f"{place_id}\n")
+            for _ in range(count):
+                place_id = self.test_create_new_location()
+                f.write(f"{place_id}\n")
         print(f"Все {count} place_id записаны в файл {filename}")
 
- # Метод для проверки локаций из файла с помощью GET-запросов.
+    # Метод для проверки локаций из файла с помощью GET-запросов.
     def test_locations_from_file(self, filename: str) -> None:
         """
         Читает place_id из файла и проверяет каждую локацию
