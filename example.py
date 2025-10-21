@@ -2,7 +2,7 @@ import requests
 
 # Создаем класс.
 class TestNewLocation:
-    def __init__(self):
+    def __init__(self): # Конструктора класса. Позволяет сохранять и повторно использовать данные, которые нужны всем методам класса. 
         # Базовый URL для API.
         self.base_url = 'https://rahulshettyacademy.com'
         # Ключ API для аутентификации.
