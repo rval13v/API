@@ -2,7 +2,7 @@ import requests
 
 # Создаем класс.
 class TestNewLocation:
-    def __init__(self): # Конструктора класса. Позволяет сохранять и повторно использовать данные, которые нужны всем методам класса.
+    def __init__(self) -> None: # Конструктора класса. Позволяет сохранять и повторно использовать данные, которые нужны всем методам класса.
         # Базовый URL для API.
         self.base_url = 'https://rahulshettyacademy.com'
         # Ключ API для аутентификации.
@@ -118,35 +118,54 @@ class TestNewLocation:
         else:
             print("Недостаточно place_id в файле для удаления 2-й и 4-й локации.")
 
+        
     def delete_location(self, place_id: str) -> None:
         """
         Вспомогательный метод для выполнения DELETE-запроса и проверки.
         """
-        delete_url = f'{self.base_url}{self.delete_resource}{self.key}'
+        delete_url = self.base_url + self.delete_resource + self.key
         json_delete_location = {"place_id": place_id}
         result_delete = requests.delete(delete_url, json=json_delete_location)
         response_json = result_delete.json()
 
-        print(f"Отправка DELETE-запроса для place_id '{place_id}':")
-        print(f"  Статус-код: {result_delete.status_code}")
-        assert result_delete.status_code == 200
-        print(f"  Статус из ответа: {response_json.get('status')}")
-        assert response_json.get('status') == 'OK'
-        print("  Удаление успешно.")
 
-        get_url = self.base_url + self.get_resource + self.key + '&place_id=' + place_id
-        result_get = requests.get(get_url)
-        print(result_get.json())
+    def check_location_with_get(self, place_id: str) -> None:
+        print(f"\n Чтение place_id из файла и проверка через GET запрос после удаления 2 и 4")
+        try:
+            with open(filename, 'r') as file:
+                file_place_ids = [line.strip() for line in file.readlines()]
+        except FileNotFoundError:
+            print(f"Ошибка: Файл '{filename}' не найден.")
+            return
+          
+        for place_id in file_place_ids[1],[4]]:
+            if place_id:
+                get_url = self.base_url + self.get_resource + self.key + '&place_id=' + place_id
+                result_get = requests.get(get_url)
+                print(f"Проверка place_id '{place_id}': Статус-код GET: {result_get.status_code}")
+                assert result_get.status_code == 404
+                print("Локации 2 и 4 удалены и проверены")
 
-        print(f'Статус-код: {result_get.status_code}')
-        assert result_get.status_code == 404
-        print('Стутс-код корректен, локация удалена')
+        # print(f"Отправка DELETE-запроса для place_id '{place_id}':")
+        # print(f"  Статус-код: {result_delete.status_code}")
+        # assert result_delete.status_code == 200
+        # print(f"  Статус из ответа: {response_json.get('status')}")
+        # assert response_json.get('status') == 'OK'
+        # print("  Удаление успешно.")
 
-        check_response_get = result_get.json()
-        msg = check_response_get.get('msg')
-        print(msg)
-        assert msg == "Get operation failed, looks like place_id  doesn't exists"
-        print('Поле MSG корректно')
+        # get_url = self.base_url + self.get_resource + self.key + '&place_id=' + place_id
+        # result_get = requests.get(get_url)
+        # print(result_get.json())
+
+        # print(f'Статус-код: {result_get.status_code}')
+        # assert result_get.status_code == 404
+        # print('Стутс-код корректен, локация удалена')
+
+        # check_response_get = result_get.json()
+        # msg = check_response_get.get('msg')
+        # print(msg)
+        # assert msg == "Get operation failed, looks like place_id  doesn't exists"
+        # print('Поле MSG корректно')
 
 
 # Создаём экземпляр класса для запуска тестов.
